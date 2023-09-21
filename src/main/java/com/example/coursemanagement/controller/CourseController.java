@@ -29,7 +29,7 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getCourseById(@PathVariable("id") Long id){
+    public ResponseEntity getCourseById(@PathVariable("id") int id){
         try{
             CourseResponse response = courseService.getCourseById(id);
             return new ResponseEntity(response, HttpStatus.FOUND);
@@ -39,7 +39,7 @@ public class CourseController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteCourse(@PathVariable("id") Long id){
+    public ResponseEntity deleteCourse(@PathVariable("id") int id){
         try{
             String response = courseService.deleteCourse(id);
             return new ResponseEntity(response,HttpStatus.OK);

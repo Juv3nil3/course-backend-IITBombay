@@ -34,7 +34,7 @@ public class CourseService {
     }
 
 
-    public CourseResponse getCourseById(Long id) {
+    public CourseResponse getCourseById(int id) {
         Optional<Course> courseOptional = courseRepository.findById(id);
         if(courseOptional.isEmpty()){
             throw new CourseNotFoundException("Course Not Found!!");
@@ -43,7 +43,7 @@ public class CourseService {
         return response;
     }
 
-    public String deleteCourse(Long id) {
+    public String deleteCourse(int id) {
         Optional<Course> courseOptional = courseRepository.findById(id);
         if(courseOptional.isEmpty()){
             throw new CourseNotFoundException("Course Not Found");

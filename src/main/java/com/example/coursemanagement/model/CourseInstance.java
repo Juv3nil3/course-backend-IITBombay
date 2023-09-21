@@ -1,6 +1,5 @@
 package com.example.coursemanagement.model;
 
-import com.example.coursemanagement.enums.Semester;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -19,8 +18,7 @@ public class CourseInstance {
 
     String year;
 
-    @Enumerated(EnumType.STRING)
-    Semester semester;
+    int semester;
 
     @ManyToOne
     @JoinColumn

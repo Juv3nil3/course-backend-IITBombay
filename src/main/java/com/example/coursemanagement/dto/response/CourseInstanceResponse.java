@@ -1,6 +1,5 @@
 package com.example.coursemanagement.dto.response;
 
-import com.example.coursemanagement.enums.Semester;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -15,6 +14,7 @@ public class CourseInstanceResponse {
     String courseCode;
 
     String Year;
-    Semester semester;
+
+    int semester;
 
 }

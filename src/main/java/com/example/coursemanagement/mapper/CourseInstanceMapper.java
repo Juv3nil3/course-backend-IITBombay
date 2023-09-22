@@ -20,4 +20,14 @@ public class CourseInstanceMapper {
                 .semester(courseInstance.getSemester())
                 .build();
     }
+
+    public static CourseInstanceResponse detailedCourseInstanceResponse(CourseInstance courseInstance){
+        return CourseInstanceResponse.builder()
+                .title(courseInstance.getCourse().getTitle())
+                .courseCode(courseInstance.getCourse().getCourseCode())
+                .Year(courseInstance.getYear())
+                .semester(courseInstance.getSemester())
+                .description(courseInstance.getCourse().getCourseDescription())
+                .build();
+    }
 }

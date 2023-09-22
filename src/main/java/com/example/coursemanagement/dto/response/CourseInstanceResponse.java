@@ -17,4 +17,6 @@ public class CourseInstanceResponse {
 
     int semester;
 
+    String description;
+
 }

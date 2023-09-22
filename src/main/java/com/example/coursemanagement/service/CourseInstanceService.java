@@ -75,7 +75,9 @@ public class CourseInstanceService {
         CourseInstance courseInstance = courseInstanceOptional.get();
         Course course = courseInstance.getCourse();
         course.getCourseInstanceList().remove(courseInstance);
+
         courseRepository.save(course);
+
         return "Instance deleted successfully";
     }
 }

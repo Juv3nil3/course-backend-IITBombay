@@ -49,7 +49,7 @@ public class CourseController {
             return new ResponseEntity(response, HttpStatus.FOUND);
         } catch (CourseNotFoundException e){
             //Handle course not found exception
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -60,7 +60,7 @@ public class CourseController {
             String response = courseService.deleteCourse(id);
             return new ResponseEntity(response,HttpStatus.OK);
         }catch (CourseNotFoundException e){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 }

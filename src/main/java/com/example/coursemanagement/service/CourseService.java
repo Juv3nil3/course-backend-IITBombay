@@ -8,6 +8,7 @@ import com.example.coursemanagement.mapper.CourseMapper;
 import com.example.coursemanagement.model.Course;
 import com.example.coursemanagement.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +29,13 @@ public class CourseService {
             courseRepository.save(savedCourse);
             return "Course Saved Successfully";
         } catch (DataIntegrityViolationException e) {
-            if (e.getMessage().contains("constraint [uk_course_course_code]")) {
-                throw new DuplicateCourseCodeException("A course with the same course code already exists.");
-            } else {
-                throw e;
+            if (e.getCause() instanceof ConstraintViolationException) {
+                ConstraintViolationException constraintViolationException = (ConstraintViolationException) e.getCause();
+                if (constraintViolationException.getSQLException().getSQLState().equals("23000")) {
+                    throw new DuplicateCourseCodeException("A course with the same course code already exists.");
+                }
             }
+            throw e;
         }
     }
 

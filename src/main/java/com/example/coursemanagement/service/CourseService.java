@@ -3,10 +3,12 @@ package com.example.coursemanagement.service;
 import com.example.coursemanagement.dto.request.CourseRequest;
 import com.example.coursemanagement.dto.response.CourseResponse;
 import com.example.coursemanagement.exception.CourseNotFoundException;
+import com.example.coursemanagement.exception.DuplicateCourseCodeException;
 import com.example.coursemanagement.mapper.CourseMapper;
 import com.example.coursemanagement.model.Course;
 import com.example.coursemanagement.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,12 +18,22 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CourseService {
+    //Service for course related operations
+
     private final CourseRepository courseRepository;
 
     public String createCourse (CourseRequest courseRequest){
-        Course savedCourse = CourseMapper.CourseRequestToCourse(courseRequest);
-        courseRepository.save(savedCourse);
-        return "Course Saved Successfully";
+        try{
+            Course savedCourse = CourseMapper.CourseRequestToCourse(courseRequest);
+            courseRepository.save(savedCourse);
+            return "Course Saved Successfully";
+        } catch (DataIntegrityViolationException e) {
+            if (e.getMessage().contains("constraint [uk_course_course_code]")) {
+                throw new DuplicateCourseCodeException("A course with the same course code already exists.");
+            } else {
+                throw e;
+            }
+        }
     }
 
     public List<CourseResponse> getAllCourses() {
@@ -37,7 +49,7 @@ public class CourseService {
     public CourseResponse getCourseById(int id) {
         Optional<Course> courseOptional = courseRepository.findById(id);
         if(courseOptional.isEmpty()){
-            throw new CourseNotFoundException("Course Not Found!!");
+            throw new CourseNotFoundException("Invalid course id");
         }
         CourseResponse response = CourseMapper.CourseToCourseResponse(courseOptional.get());
         return response;
@@ -46,7 +58,7 @@ public class CourseService {
     public String deleteCourse(int id) {
         Optional<Course> courseOptional = courseRepository.findById(id);
         if(courseOptional.isEmpty()){
-            throw new CourseNotFoundException("Course Not Found");
+            throw new CourseNotFoundException("Invalid course id");
         }
         Course course = courseOptional.get();
         courseRepository.delete(course);

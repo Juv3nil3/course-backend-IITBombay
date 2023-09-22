@@ -39,7 +39,7 @@ public class CourseInstanceService {
         instance.setCourse(savedCourse);
         savedCourse.getCourseInstanceList().add(instance);
 
-        courseRepository.save(savedCourse);
+        courseRepository.save(savedCourse); //Saves both course and courseInstance
 
         return CourseInstanceMapper.CourseInstanceToCourseInstanceResponse(instance);
     }

@@ -14,13 +14,13 @@ public class CourseInstance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    int id;  //Unique Identifier
 
-    String year;
+    String year;  //Year of course delivery YYYY
 
-    int semester;
+    int semester;  //Semester of delivery 1 or 2
 
     @ManyToOne
     @JoinColumn
-    Course course;
+    Course course;  //Reference to the associated course
 }

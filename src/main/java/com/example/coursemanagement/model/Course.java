@@ -17,7 +17,7 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    int id;  //Unique identifier for the course
 
     @Column(nullable = false)
     String title;
@@ -29,7 +29,8 @@ public class Course {
     String courseDescription;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<CourseInstance> courseInstanceList = new ArrayList<>();
+    List<CourseInstance> courseInstanceList = new ArrayList<>(); //List of instances associated with this course
+
 
 
 }

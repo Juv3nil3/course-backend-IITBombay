@@ -21,12 +21,15 @@ public class CourseInstanceController {
 
     @PostMapping
     public ResponseEntity createInstance(@RequestBody CourseInstanceRequest courseInstanceRequest){
+        //Create a new course
         try {
             CourseInstanceResponse response = courseInstanceService.createInstance(courseInstanceRequest);
             return new ResponseEntity(response,HttpStatus.CREATED);
         } catch (CourseInstanceAlreadyExistsException e){
+            //Handle course instance already exists exception
             return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
         } catch(CourseNotFoundException e){
+            //Handle course not found exception
             return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
 
@@ -34,7 +37,9 @@ public class CourseInstanceController {
     }
 
     @GetMapping("/{year}/{semester}")
-    public ResponseEntity getInstanceByYearAndSemester(@PathVariable("year") String year, @PathVariable("semester") int semester){
+    public ResponseEntity getInstanceByYearAndSemester(@PathVariable("year") String year,
+                                                       @PathVariable("semester") int semester){
+        //List of all the course instances for given year and semester
         List<CourseInstanceResponse> response = courseInstanceService.getInstanceByYearAndSemester(year,semester);
         return new ResponseEntity(response,HttpStatus.FOUND);
     }

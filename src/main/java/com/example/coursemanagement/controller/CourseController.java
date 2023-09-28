@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/courses")
+@CrossOrigin("*")
 public class CourseController {
     //Controller for course related endpoints
 
@@ -46,7 +47,7 @@ public class CourseController {
         //Retrieve a course by its ID
         try{
             CourseResponse response = courseService.getCourseById(id);
-            return new ResponseEntity(response, HttpStatus.FOUND);
+            return new ResponseEntity(response, HttpStatus.OK);
         } catch (CourseNotFoundException e){
             //Handle course not found exception
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

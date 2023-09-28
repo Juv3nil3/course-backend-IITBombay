@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/instances")
+@CrossOrigin("*")
 public class CourseInstanceController {
     private final CourseInstanceService courseInstanceService;
 
@@ -41,7 +42,7 @@ public class CourseInstanceController {
                                                        @PathVariable("semester") int semester){
         //List of all the course instances for given year and semester
         List<CourseInstanceResponse> response = courseInstanceService.getInstanceByYearAndSemester(year,semester);
-        return new ResponseEntity(response,HttpStatus.FOUND);
+        return new ResponseEntity(response,HttpStatus.OK);
     }
 
     @GetMapping("/{year}/{sem}/{id}")
@@ -49,7 +50,7 @@ public class CourseInstanceController {
                                               @PathVariable("id") int courseId){
         try{
             CourseInstanceResponse response = courseInstanceService.getDetailedInstance(year,semester,courseId);
-            return new ResponseEntity(response,HttpStatus.FOUND);
+            return new ResponseEntity(response,HttpStatus.OK);
         } catch(CourseNotFoundException e){
             return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
         }

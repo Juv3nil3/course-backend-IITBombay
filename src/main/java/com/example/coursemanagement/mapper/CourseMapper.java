@@ -15,6 +15,7 @@ public class CourseMapper {
 
     public static CourseResponse CourseToCourseResponse(Course course){
         return CourseResponse.builder()
+                .id(course.getId())
                 .title(course.getTitle())
                 .courseCode(course.getCourseCode())
                 .courseDescription(course.getCourseDescription())

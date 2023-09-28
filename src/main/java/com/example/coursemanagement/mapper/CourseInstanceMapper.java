@@ -12,17 +12,10 @@ public class CourseInstanceMapper {
                 .build();
     }
 
+
     public static CourseInstanceResponse CourseInstanceToCourseInstanceResponse(CourseInstance courseInstance){
         return CourseInstanceResponse.builder()
-                .title(courseInstance.getCourse().getTitle())
-                .courseCode(courseInstance.getCourse().getCourseCode())
-                .Year(courseInstance.getYear())
-                .semester(courseInstance.getSemester())
-                .build();
-    }
-
-    public static CourseInstanceResponse detailedCourseInstanceResponse(CourseInstance courseInstance){
-        return CourseInstanceResponse.builder()
+                .courseId(courseInstance.getCourse().getId())
                 .title(courseInstance.getCourse().getTitle())
                 .courseCode(courseInstance.getCourse().getCourseCode())
                 .Year(courseInstance.getYear())

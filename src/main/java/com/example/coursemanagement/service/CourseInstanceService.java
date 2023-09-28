@@ -59,7 +59,7 @@ public class CourseInstanceService {
         // Check if an instance for the same course, year, and semester exists
         Optional<CourseInstance> courseInstanceOptional = courseInstanceRepo.findByIdAndYearAndSemesterWithCourseDescription(courseId, year, semester);
         if(courseInstanceOptional.isPresent()){
-            CourseInstanceResponse response = CourseInstanceMapper.detailedCourseInstanceResponse(courseInstanceOptional.get());
+            CourseInstanceResponse response = CourseInstanceMapper.CourseInstanceToCourseInstanceResponse(courseInstanceOptional.get());
             return response;
         }
         else {

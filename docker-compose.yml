@@ -21,7 +21,7 @@ services:
 
   # Spring Boot application service
   backend:
-    image: backend-test:0.2
+    image: xenojuv/course-backendiitb
     container_name: backend-container
     ports:
       - "8080:8080"

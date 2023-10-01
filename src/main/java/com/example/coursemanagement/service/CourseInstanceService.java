@@ -34,14 +34,18 @@ public class CourseInstanceService {
         }
         Optional<Course> courseOptional = courseRepository.findById(courseId);
 
-        Course savedCourse = courseOptional.get();
-        CourseInstance instance = CourseInstanceMapper.prepareCourseInstance(courseInstanceRequest);
-        instance.setCourse(savedCourse);
-        savedCourse.getCourseInstanceList().add(instance);
+        if(courseOptional.isPresent()){
+            Course savedCourse = courseOptional.get();
+            CourseInstance instance = CourseInstanceMapper.prepareCourseInstance(courseInstanceRequest);
+            instance.setCourse(savedCourse);
+            savedCourse.getCourseInstanceList().add(instance);
 
-        courseRepository.save(savedCourse); //Saves both course and courseInstance
+            courseRepository.save(savedCourse); //Saves both course and courseInstance
 
-        return CourseInstanceMapper.CourseInstanceToCourseInstanceResponse(instance);
+            return CourseInstanceMapper.CourseInstanceToCourseInstanceResponse(instance);
+        }
+
+        return null;
     }
 
 

@@ -15,8 +15,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/instances")
 @CrossOrigin("*")
+@RequestMapping("/api/instances")
 public class CourseInstanceController {
     private final CourseInstanceService courseInstanceService;
 

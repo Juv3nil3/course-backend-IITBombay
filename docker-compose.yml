@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # MySQL database service
+  mysqldb:
+    image: mysql:8.0
+    container_name: mysql-container
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cmdb
+    networks:
+      - backend-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Spring Boot application service
+  backend:
+    image: backend-test:0.2
+    container_name: backend-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/cmdb?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - backend-network
+
+  frontend:
+    image: frontend-test:2.2
+    container_name: react-app
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://backend:8080
+    depends_on:
+      - backend
+    networks:
+      -  backend-network
+
+networks:
+  backend-network:
+    driver: bridge
+

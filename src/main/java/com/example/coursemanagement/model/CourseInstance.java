@@ -1,6 +1,7 @@
 package com.example.coursemanagement.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,7 +17,9 @@ public class CourseInstance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;  //Unique Identifier
 
+
     String year;  //Year of course delivery YYYY
+
 
     int semester;  //Semester of delivery 1 or 2
 

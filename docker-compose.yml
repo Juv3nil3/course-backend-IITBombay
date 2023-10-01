@@ -37,7 +37,7 @@ services:
       - backend-network
 
   frontend:
-    image: frontend-test:2.2
+    image: xenojuv/course-frontendiitb
     container_name: react-app
     ports:
       - "3000:3000"

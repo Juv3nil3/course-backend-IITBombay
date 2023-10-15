@@ -5,7 +5,7 @@ CMS is a webapp for managing courses and their instances.
 ## Tech-Stack
 Frontend- React, Bootstrap
 
-Backend - Srpingboot, MySQL
+Backend - Springboot, MySQL
 
 Docker
 
